@@ -1,186 +1,166 @@
-# Hsh Simple Shell 
- 
-## Synopsis ⚡️ 
-This is the repository for our project for [Holberton School](https://www.holbertonschool.fr/) low-level programming curriculum. The project consisted in coding `hsh`, a simplified and custom version of `sh` Bourne Shell. The project was realized in two weeks based on a flow chart and using Trello planning.
- 
-## Overview :computer:  
-`hsh` is a custom UNIX command line interpreter, built entirely in **C** language. It executes commands read from the standard input.
-The memory management and the errors output have been handled.
-  
-## Built With :hammer_and_wrench: 
-  
-`hsh` was developped with:   
-  
-* C programming language
-* Visual Studio Code 
-* Program was developed on an environment using Docker 
-* GCC 
- 
-## Features 
+# Simple Shell
 
-`hsh` supports two modes: `interactive`and `non-interactive`. It handles the command lines with arguments and pathways.
- 
-## Built-Ins ⚙️  
+## Introduction
 
-The following built-ins functions have been implemented:
+This is a Holberton School project that consists of making our own simple shell with a limited amount of functions from the standard library.
 
-### Exit
+### List of allowed functions and system calls
+* access (man 2 access)
+* chdir (man 2 chdir)
+* close (man 2 close)
+* closedir (man 3 closedir)
+* execve (man 2 execve)
+* exit (man 3 exit)
+* _exit (man 2 _exit)
+* fflush (man 3 fflush)
+* fork (man 2 fork)
+* free (man 3 free)
+* getcwd (man 3 getcwd)
+* getline (man 3 getline)
+* getpid (man 2 getpid)
+* isatty (man 3 isatty)
+* kill (man 2 kill)
+* malloc (man 3 malloc)
+* open (man 2 open)
+* opendir (man 3 opendir)
+* perror (man 3 perror)
+* read (man 2 read)
+* readdir (man 3 readdir)
+* signal (man 2 signal)
+* stat (__xstat) (man 2 stat)
+* lstat (__lxstat) (man 2 lstat)
+* fstat (__fxstat) (man 2 fstat)
+* strtok (man 3 strtok)
+* wait (man 2 wait)
+* waitpid (man 2 waitpid)
+* wait3 (man 2 wait3)
+* wait4 (man 2 wait4)
+* write (man 2 write)
 
-* Usage: `exit`
-* Quits `hsh` 
+## Usage
 
-```
-$ ./hsh
-$ exit
-```
- 
-### Env
+To use this program:
 
-* Usage: `env`
-* Prints the current environment
+Clone the repo
 
-```
-$ env
-LANGUAGE=en_US:en
-PWD=/holbertonschool-simple_shell
-``` 
+    git clone https://github.com/Nachop51/simple_shell
 
-## Usage 📖
+Compile it with
 
-* First, Git clone the repository using: 
+    gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
-    **HTTPS:**
-```
-$ git clone https://github.com/HugoCLI/holbertonschool-simple_shell.git
-```
-   **SSH:** 
-```
-$ git clone git@github.com:HugoCLI/holbertonschool-simple_shell.git
-```
+### How to use it
 
-* Then, compile the files this way
+In order to use this shell, in a terminal, first run the program:
 
-```
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
-```
+`prompt$ ./hsh`
 
-* You're ready to run the program with `./hsh`
-A prompt will be displayed `$`, awaiting for a command input. 
+It will then display a simple prompt and wait for commands.
 
-* Exit
+`$`
 
-To exit the program, run `$ exit` or use CTRL + D.
+A command will be of the type `$ command`
+This shell can handle two types of commands: builtins and normal program.
 
-* Manual
+### List of built-ins
+* exit  
+    Exits the shell
+* env  
+    Prints the current environment
+* setenv  
+    Initialize a new environment variable, or modify an existing one
+* unsetenv  
+    Remove an environment variable
+* cd [directory]  
+    Changes the current directory of the process
+* help  
+    Display all the enviroment variables
+* history  
+    Displays the history list
 
-`hsh` is provided with a manpage that is accessible by running:
-```
-man ./man_shell.1
-```
+### Command
 
-## Examples
+Basicly Every Program in $PATH It Support Single Word like ls
 
-Below are presented examples of `hsh` usage.
+It Handle Path ls /tmp
 
-### Interactive
+it Handle Options Like ls -l
 
-In interactive mode, `hsh` receives directly the command from the user: standard input linked to the terminal and detected by the [isatty(3)](https://www.man7.org/linux/man-pages/man3/isatty.3.html) function.
+it Handle All Three Togther Like ls -l /var
 
-**Command**
+it Handle Command Path Also Like /bin/ls And All The Option And Path Like /bin/ls -l /var
 
-```
-$ ls -la
-$ echo 'Holberton school'
-$ pwd
-```
+it Handle Comments #
 
-**Output**
+## Examples Command
 
-```
-total 92
-drwxr-xr-x 4 root root  4096 Dec  7 14:01 .
-drwxr-xr-x 1 root root  4096 Dec  5 06:23 ..
--rw-r--r-- 1 root root   344 Dec  7 09:13 assembly_command.c
--rw-r--r-- 1 root root   186 Dec  7 09:13 AUTHORS
--rw-r--r-- 1 root root   225 Dec  7 09:13 env_command.c
--rw-r--r-- 1 root root   554 Dec  7 09:13 execute_command.c
-'Holberton school'
-/holbertonschool-simple_shell
-```
+### Example 1
+    username@prompt:~$ ./hsh
+    $ pwd
+    /home/simple_shell/
+    $ ^D
+    username@prompt:~$
 
-### Non interactive
+### Example 2
+    username@prompt:~$ ./hsh
+    $ ls -l /tmp
+    total 0
+    drwx------ 2 root  root  22 Dec 20 11:41 tmpa2zvokgp
+    drwx------ 2 mysql mysql  6 Dec 20 11:54 tmp.GMWnSs1EVB
+    drwx------ 2 mysql mysql  6 Dec 20 11:37 tmp.ugKboEbH00
 
-In non interactive mode, the commands are read according to the piped commands.
+## Examples Builtin
 
-**Command**
+### Case env
 
-```
-echo "/bin/ls" | ./hsh
-```
-**Output**
+    username@prompt:~$ ./hsh
+    $ env
+    HOSTNAME=11548ecbb7ce
+    LANGUAGE=en_US:en
+    PWD=/home/simple_shell/k
+    TZ=America/Los_Angeles
+    HOME=/root
+    LANG=en_US.UTF-8
+    LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+    LESSCLOSE=/usr/bin/lesspipe %s %s
+    TERM=xterm
+    LESSOPEN=| /usr/bin/lesspipe %s
+    SHLVL=1
+    LC_ALL=en_US.UTF-8
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    OLDPWD=/home
+    _=./a.out
 
-```
-assembly_command.c  execute_command.c             hsh              main.c          README.md              start_val.sh
-AUTHORS             exercices                     input_command.c  main.h          requirement_command.c
-env_command.c       holbertonschool-simple_shell  is_path.c        path_command.c  start.sh
-```
+### Case exit status
 
-## Exit status 👋
+    username@prompt:~$ ./hsh
+    $ exit 98
+    username@prompt:~$ echo $?
+    98
+    username@prompt:~$
 
-| Exit | Description                                     |
-|----------|-----------------------------------------------|
-|  0     |  Success |
-|  -1     |  Failure |
-|   127   |  Command not found      |
+## Also
+* Handle Ctrl+C: The shell will not close when the user enters ^D
+* If no argument is given to cd the command must be interpreted like cd $HOME
+* Handle the command cd -
+* Handle the $? variable
 
-## Signal 📢
+## Custom Function (Recreation of Standard Function in C)
+_strncpy
+_strlen
+_putchar
+_atoi
+_strcmp
+str_concat
+_strcpy
+_strncmp
+_strdup
+_getenv
+_strtok
 
-The keyboard command CTRL + C is ignored:
+For More Info About It Check The Man Page by:
 
-```
-$ ^C
-$ ^C
-$
-```
+    username@prompt:~$ man ./man_1_simple_shell
 
-## Manual Page
-
-[Manpage](https://github.com/HugoCLI/holbertonschool-simple_shell/blob/main/man_shell.1) 
-
-## Libraries used 📔
-
-`stdlib.h` | `stdio.h` | `unistd.h` | `string.h` | `sys/types.h` | `sys/wait.h` | `sys/stat.h` 
-
-## Project Files Description 📌
-
-The projects include 8 files as follows: 
-
-| File | Description                                     |
-|----------|-----------------------------------------------|
-|  main.c     |  Entry point that displays a prompt, checks if user entered `exit` or CTRL+D and reads user input |
-|  main.h     |  Header files, containing all functions prototypes as well as the librairies used |
-|   assembly_command.c   |   Assembles the command     |
-|   env_command.c    |   Prints the current environment    |
-|   execute_command.c     |     Creates a child process and execute the command   |
-|     input_command.c  | Tokenises the input received  |
-|    is_path.c   | Checks if there is a '/' in the command |
-|    path_command.c   |  Finds the path to execute the command |
-
-## Flow Chart 📄
-
-![flowchart](https://github.com/HugoCLI/holbertonschool-simple_shell/blob/main/Simple%20Shell-Page-1.drawio.png)
-
-## Acknowledgment 🙏
-
-Thanks to [Taieb](https://github.com/taiebchaabini) for reviewing our project !
-
-## Authors ✒️
-
-**Hugo Chilemme**
-[@HugoCLI](https://github.com/HugoCLI)
-
-**Camille Favriel**
-[@CamilleFavriel](https://github.com/CamilleFavriel)
-
-**Sonia Nguyen**
-[@soniangn](https://github.com/soniangn)
+## Authors
+Nacho Peralta & Kevin Fundora
